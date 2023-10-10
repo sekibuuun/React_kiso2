@@ -63,6 +63,7 @@ export const Home = () => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`);
       });
   };
+
   return (
     <div>
       <Header />
@@ -116,6 +117,32 @@ export const Home = () => {
 // 表示するタスク
 const Tasks = (props) => {
   const { tasks, selectListId, isDoneDisplay } = props;
+  const caluculateTime = (limit) => {
+    // 現在の日本時間を取得
+    const now = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+
+    // 期限の時間を取得(イギリス時間)
+    const limitTime = new Date(limit);
+
+    // 期限の時間を日本時間に変換
+    limitTime.setHours(limitTime.getHours() - 9);
+
+    // 時間の差を計算（ミリ秒単位で差を取得）
+    const difference = new Date(limitTime) - new Date(now);
+    let timeLeft = {};
+
+    if (difference < 0) {
+      return "期限切れ";
+    } else {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+      };
+      return `${timeLeft.days}日${timeLeft.hours}時間${timeLeft.minutes}分`;
+    }
+  };
+
   if (tasks === null) return <></>;
 
   if (isDoneDisplay === "done") {
@@ -128,7 +155,9 @@ const Tasks = (props) => {
           .map((task, key) => (
             <li key={key} className="task-item">
               <Link to={`/lists/${selectListId}/tasks/${task.id}`} className="task-item-link">
-                {task.title}
+                {task.title} {task.limit}
+                <br />
+                {caluculateTime(task.limit)}
                 <br />
                 {task.done ? "完了" : "未完了"}
               </Link>
@@ -147,7 +176,9 @@ const Tasks = (props) => {
         .map((task, key) => (
           <li key={key} className="task-item">
             <Link to={`/lists/${selectListId}/tasks/${task.id}`} className="task-item-link">
-              {task.title}
+              {task.title} {task.limit}
+              <br />
+              {caluculateTime(task.limit)}
               <br />
               {task.done ? "完了" : "未完了"}
             </Link>
