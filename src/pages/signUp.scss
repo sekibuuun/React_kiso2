@@ -6,6 +6,10 @@ $white: #ffffff;
 $grey: #555555;
 
 .signup {
+  @media screen and (max-width: 1000px) {
+    width: 80%;
+    margin: 0 10%;
+  }
   width: 500px;
   margin: 0 auto;
 
