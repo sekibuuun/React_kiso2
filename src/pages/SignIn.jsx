@@ -31,7 +31,7 @@ export const SignIn = () => {
       });
   };
 
-  if (auth) return <Route path="/" element={<Navigate to="/" />} />;
+  if (auth) return <Navigate to="/" />;
 
   return (
     <div>
