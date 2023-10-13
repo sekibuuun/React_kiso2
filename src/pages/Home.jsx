@@ -64,6 +64,12 @@ export const Home = () => {
       });
   };
 
+  const handleKeyDown = (e, id) => {
+    if (e.key === "Enter") {
+      handleSelectList(id);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -91,6 +97,7 @@ export const Home = () => {
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => handleKeyDown(e, list.id)}
                 >
                   {list.title}
                 </li>
