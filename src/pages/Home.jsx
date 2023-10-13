@@ -64,6 +64,12 @@ export const Home = () => {
       });
   };
 
+  const handleKeyDown = (e, id) => {
+    if (e.key === "Enter") {
+      handleSelectList(id);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -81,14 +87,17 @@ export const Home = () => {
               </p>
             </div>
           </div>
-          <ul className="list-tab">
+          <ul role="tablist" className="list-tab">
             {lists.map((list, key) => {
               const isActive = list.id === selectListId;
               return (
                 <li
+                  role="tab"
+                  tabIndex={0}
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => handleKeyDown(e, list.id)}
                 >
                   {list.title}
                 </li>
