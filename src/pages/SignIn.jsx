@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { Navigate, useNavigate, Link, Route } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { Header } from "../components/Header";
 import "./signin.scss";
 import { useDispatch, useSelector } from "react-redux";

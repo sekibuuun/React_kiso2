@@ -136,7 +136,6 @@ const Tasks = (props) => {
     // 期限の時間を日本時間に変換
     limitTime.setHours(limitTime.getHours() - 9);
 
-    // 時間の差を計算（ミリ秒単位で差を取得）
     const difference = new Date(limitTime) - new Date(now);
     let timeLeft = {};
 
