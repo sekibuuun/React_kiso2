@@ -5,11 +5,16 @@ $white: #ffffff;
 $blue: #242f9b;
 
 .edit-task {
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-  }
   width: 1000px;
   margin: 0 auto;
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    margin-left: 5%;
+  }
+  @media screen and (max-width: 320px) {
+    width: 90%;
+    margin: 0 5%;
+  }
 
   .error-message {
     color: $red;
@@ -23,6 +28,9 @@ $blue: #242f9b;
   .edit-task-detail {
     width: 300px;
     margin-bottom: 25px;
+    @media screen and (max-width: 320px) {
+      width: 100%;
+    }
   }
 
   .delete-task-button {
