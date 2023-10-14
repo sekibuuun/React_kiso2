@@ -6,12 +6,12 @@ $white: #ffffff;
 $grey: #555555;
 
 .signin {
+  width: 500px;
+  margin: 0 auto;
   @media screen and (max-width: 768px) {
     width: 80%;
     margin: 0 10%;
   }
-  width: 500px;
-  margin: 0 auto;
 
   .error-message {
     color: $red;
