@@ -18,7 +18,29 @@ export const EditTask = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
-  const handleLimitChange = (e) => setLimit(e.target.value);
+  const stringToDate = (str) => {
+    const date = new Date(str);
+    const year = date.getUTCFullYear();
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+    const day = date.getUTCDate().toString().padStart(2, "0");
+    const hours = date.getUTCHours().toString().padStart(2, "0");
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+    const seconds = date.getUTCSeconds().toString().padStart(2, "0");
+
+    const datetimeLocalStr = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+    return datetimeLocalStr;
+  };
+  const handleLimitChange = (e) => {
+    const date = new Date(e.target.value);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+
+    const limit = `${year}-${month}-${day}T${hours}:${minutes}:00Z`;
+    setLimit(limit);
+  };
   const onUpdateTask = () => {
     console.log(isDone);
     const data = {
@@ -94,7 +116,12 @@ export const EditTask = () => {
           <br />
           <label>期限</label>
           <br />
-          <input type="datetime" onChange={handleLimitChange} className="edit-task-limit" value={limit} />
+          <input
+            type="datetime-local"
+            onChange={handleLimitChange}
+            className="edit-task-limit"
+            value={stringToDate(limit)}
+          />
           <br />
           <div>
             <input

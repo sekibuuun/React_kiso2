@@ -18,7 +18,21 @@ export const NewTask = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
-  const handleDateChange = (e) => setLimit(e.target.value);
+  const handleDateChange = (e) => {
+    const date = new Date(e.target.value);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const hour = date.getHours();
+    let minutes = date.getMinutes();
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+
+    const limit = `${year}-${month}-${day}T${hour}:${minutes}:00Z`;
+    setLimit(limit);
+  };
   const onCreateTask = () => {
     const data = {
       title: title,
@@ -84,7 +98,7 @@ export const NewTask = () => {
           <br />
           <label>期限</label>
           <br />
-          <input type="datetime" onChange={handleDateChange} className="new-task-date" />
+          <input type="datetime-local" onChange={handleDateChange} className="new-task-date" />
           <br />
           <button type="button" className="new-task-button" onClick={onCreateTask}>
             作成
